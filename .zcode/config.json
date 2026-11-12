@@ -14,10 +14,13 @@
         {
           "hooks": [
             {
-              "type": "command",
-              "command": "python tools/hooks/memory_index.py",
-              "timeout": 10,
-              "statusMessage": "Память проекта"
+              "type": "process",
+              "command": "python",
+              "args": [
+                "${ZCODE_PROJECT_DIR}\\tools\\hooks\\memory_index.py"
+              ],
+              "statusMessage": "Память проекта",
+              "timeoutMs": 10000
             }
           ]
         }
@@ -26,10 +29,13 @@
         {
           "hooks": [
             {
-              "type": "command",
-              "command": "python tools/hooks/memory_reminder.py",
-              "timeout": 10,
-              "statusMessage": "Напоминание о памяти"
+              "type": "process",
+              "command": "python",
+              "args": [
+                "${ZCODE_PROJECT_DIR}\\tools\\hooks\\memory_reminder.py"
+              ],
+              "statusMessage": "Напоминание о памяти",
+              "timeoutMs": 10000
             }
           ]
         }
