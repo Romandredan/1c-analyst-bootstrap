@@ -41,7 +41,7 @@
 | Почему решили так | `docs/adr/` | `brainstorming`, `domain-modeling`, `grilling` |
 | Как здесь работать | `memory/` | Хуки памяти проекта |
 | Что согласовано с заказчиком | `deliverables/<кейс>/customer/` | `analyst-handoff`, `mermaid-diagrams-ru`, `md-design-prototype` |
-| Что меняем | `openspec/changes/` | `openspec-proposal` |
+| Что меняем | `openspec/changes/` | `openspec-propose` |
 | Что передаём разработке | `deliverables/<кейс>/dev/` | `analyst-handoff` |
 
 ## Создать проект
