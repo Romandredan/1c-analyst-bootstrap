@@ -1,0 +1,39 @@
+{
+  "mcp": {
+    "servers": {
+      "code-index": {
+        "type": "http",
+        "url": "http://127.0.0.1:8011/mcp"
+      }
+    }
+  },
+  "hooks": {
+    "enabled": true,
+    "events": {
+      "SessionStart": [
+        {
+          "hooks": [
+            {
+              "type": "command",
+              "command": "python tools/hooks/memory_index.py",
+              "timeout": 10,
+              "statusMessage": "Память проекта"
+            }
+          ]
+        }
+      ],
+      "Stop": [
+        {
+          "hooks": [
+            {
+              "type": "command",
+              "command": "python tools/hooks/memory_reminder.py",
+              "timeout": 10,
+              "statusMessage": "Напоминание о памяти"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
