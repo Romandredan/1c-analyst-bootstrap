@@ -2,17 +2,18 @@
 
 Два режима:
 
-    python tools/init_project.py --name "VIP-примерка" [--system "Управление торговлей 11.5"] [--code-alias ut]
+    python tools/init_project.py --name "Интеграция с кассой" [--system "Управление торговлей 11.5"] [--code-alias ut]
         Заполняет места шаблона в этом репозитории. Режим для проекта,
         созданного из шаблона кнопкой «Use this template» или командой git clone.
 
-    python tools/init_project.py --into D:/work/team-repo --name "VIP-примерка" [...]
+    python tools/init_project.py --into D:/work/team-repo --name "Интеграция с кассой" [...]
         Копирует структуру шаблона в другую папку, например в репозиторий команды
         разработки. Существующие файлы не перезаписываются и перечисляются в
         отчёте; места заполняются только в скопированных файлах.
 
 После запуска скрипт перечисляет места, которые остались незаполненными: их
-вписывает человек или агент.
+вписывает человек или агент. Если папка проекта ещё не внутри репозитория git,
+скрипт выполняет git init с веткой main.
 """
 
 from __future__ import annotations
@@ -20,6 +21,7 @@ from __future__ import annotations
 import argparse
 import re
 import shutil
+import subprocess
 import sys
 from pathlib import Path
 
@@ -67,6 +69,21 @@ def places_left(paths: list[Path], base: Path) -> list[str]:
             for match in PLACE_RE.findall(line):
                 left.append(f"{path.relative_to(base).as_posix()}:{number}: {match}")
     return left
+
+
+def ensure_git(base: Path) -> str:
+    """Создать репозиторий git в папке проекта, если её ещё нет внутри репозитория."""
+    if shutil.which("git") is None:
+        return "git не найден: репозиторий не создан, инициализируйте вручную"
+    probe = subprocess.run(["git", "-C", str(base), "rev-parse", "--is-inside-work-tree"],
+                           capture_output=True, text=True)
+    if probe.returncode == 0:
+        return "репозиторий git уже есть"
+    init = subprocess.run(["git", "-C", str(base), "init", "-b", "main"],
+                          capture_output=True, text=True)
+    if init.returncode != 0:
+        return f"git init не удался: {init.stderr.strip()}"
+    return "создан репозиторий git (ветка main)"
 
 
 def main() -> int:
@@ -125,6 +142,7 @@ def main() -> int:
         checked = touched
 
     left = places_left(checked, base)
+    print(f"Git: {ensure_git(base)}")
     if left:
         print(f"Осталось заполнить ({len(left)}):")
         for item in left:

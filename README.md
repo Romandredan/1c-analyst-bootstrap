@@ -50,15 +50,15 @@
 проекта без истории шаблона. Без GitHub:
 
 ```powershell
-git clone https://github.com/Romandredan/1c-analyst-bootstrap.git vip-primerka
-cd vip-primerka
+git clone https://github.com/Romandredan/1c-analyst-bootstrap.git integraciya-s-kassoy
+cd integraciya-s-kassoy
 git remote rename origin template
 ```
 
 Затем заполните места шаблона:
 
 ```powershell
-python tools/init_project.py --name "VIP-примерка" --system "Управление торговлей 11.5" --code-alias ut
+python tools/init_project.py --name "Интеграция с кассой" --system "Управление торговлей 11.5" --code-alias ut
 ```
 
 Скрипт впишет имя, систему и алиас индекса и перечислит места, которые остались
@@ -70,11 +70,27 @@ python tools/init_project.py --name "VIP-примерка" --system "Управ�
 аналитическая структура накладывается поверх него:
 
 ```powershell
-python tools/init_project.py --into D:\work\team-repo --name "VIP-примерка" --system "Управление торговлей 11.5" --code-alias ut
+python tools/init_project.py --into D:\work\team-repo --name "Интеграция с кассой" --system "Управление торговлей 11.5" --code-alias ut
 ```
 
 Существующие файлы не перезаписываются, скрипт перечислит пропущенные. Тогда
 `src/` принадлежит команде, а правка аналитика идёт на ревью разработчику.
+Если папка ещё не внутри репозитория git, скрипт создаст его: `git init`,
+ветка `main`.
+
+**Или попросите агента.** Работает для обоих режимов - и для нового проекта,
+и для наложения на папку команды. Отправьте агенту текст:
+
+> Наложи структуру проекта аналитика 1С на мою папку: <путь к папке проекта>
+> Шаблон здесь: https://github.com/Romandredan/1c-analyst-bootstrap - склонируй
+> его и запусти tools/init_project.py в режиме наложения на мою папку
+> (параметр --into). Мои существующие файлы не перезаписывай: если что-то уже
+> есть, пропусти и скажи мне. Имя проекта, систему и алиас индекса кода спроси
+> у меня, если я их не назвал. В конце простыми словами скажи, что сделано и
+> какие места осталось заполнить вручную.
+
+Агент сам скачает шаблон, наложит структуру и перечислит оставшиеся пустые
+места: назначение проекта в `AGENTS.md` и разделы wiki в `wiki/index.md`.
 
 ## Подключить инструменты
 

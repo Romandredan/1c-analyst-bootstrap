@@ -40,3 +40,10 @@ openspec init --tools zcode
 
 Шлюз `odata1c` подключается не здесь, а на уровне клиента: он один на все
 проекты.
+
+Если хуки не срабатывают, проверьте команду `python --version` в терминале
+клиента: когда Python не установлен, Windows подставляет заглушку Microsoft
+Store, которая вместо запуска открывает магазин. В этом случае в
+`.zcode/config.json` и `.claude/settings.json` замените `python` на полный
+путь к установленному интерпретатору (например,
+`C:/Users/<имя>/AppData/Local/Programs/Python/Python312/python.exe`).
