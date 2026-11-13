@@ -8,3 +8,7 @@ __pycache__/
 
 # Локальные настройки клиентов агента
 .claude/settings.local.json
+
+# Сеансные планы клиентов агента — не commitятся и не едут в проекты
+.zcode/plans/
+.claude/plans/

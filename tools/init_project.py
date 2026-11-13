@@ -30,7 +30,8 @@ SELF = Path(__file__).resolve()
 TEXT_SUFFIXES = {".md", ".json", ".yaml", ".yml", ".txt", ""}
 # Файлы самого шаблона: в проект при наложении не копируются и не заполняются.
 TEMPLATE_ONLY = {"LICENSE", "CHANGELOG.md", "tools/init_project.py"}
-SKIP_PARTS = {".git", "__pycache__"}
+# Сеансные папки клиентов агента (.zcode/plans и т.п.): в проекты не копируются.
+SKIP_PARTS = {".git", "__pycache__", "plans"}
 README_TITLE = "# Проект аналитика 1С"
 PLACE_RE = re.compile(r"<[А-ЯЁ][^<>\n]*>")
 
